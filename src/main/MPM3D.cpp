@@ -19,6 +19,7 @@
 ==============================================================*/
 
 #include "MPM3D.h"
+#include <iomanip>
 
 MPM3D::MPM3D(/* args */)
 {
@@ -31,12 +32,65 @@ MPM3D::~MPM3D()
 
 void MPM3D::run(const char *argv)
 {
+    _filename = argv;
+    string extension;
 
+    //!> Get input file name
+    size_t pos = _filename.find_last_of("/");    //!< For Linux system
+    if (pos == string::npos)
+    {
+        pos = _filename.find_last_of("\\");      //!< For Windows system
+        if (pos != string::npos)
+            _path = _filename.substr(0, pos + 1);
+    }
+    else
+        _path = _filename.substr(0, pos + 1);
+    
+    pos = _filename.find_last_of(".");
+    if (pos == string::npos)
+    {
+        _filename += ".xml";
+        pos = _filename.find_last_of(".");
+        extension = "xml";
+    }
+    else
+        extension = _filename.substr(pos + 1);
+
+    //!> parse the input file with "tinyXML" tool
+    XMLDocument* doc = new XMLDocument;
+    if (extension == "xml")
+    {
+        if (doc->LoadFile(_filename.c_str()))
+        {
+            doc->PrintError();
+            exit(1);
+        }
+        _filename = _filename.substr(0, pos);
+    }
+    else
+    {
+        string error = "Invalid file extension: " + extension;
+        MPM3D_ErrorMessage(__FILE__, __LINE__, error);
+        exit(1);
+    }
+
+    //!> Initialize the computational domain
+    if (!Initialize(doc))
+    {
+        string error = "Error in initializing MPM3D!";
+        MPM3D_ErrorMessage(__FILE__, __LINE__, error);
+        _log_file << error << endl;
+        exit(3);
+    }
+
+    //!> time integration
+
+    return;
 }
 
 void MPM3D::HelpMessage()
 {
-    ofstream Outs("help.txt");
+    ofstream Outs("help.log");
     PrintLogo(Outs);
 
     cout << "Usage: MPM3D [options] InputFileName\n"
@@ -92,16 +146,16 @@ void MPM3D::PrintLogo(ofstream& os)
 {
     string s1 ("********************************************************************\n");
     string s2 ("*                                                                  *\n");
-    string s3 ("*   **       **   *******    **       **   *********   *******     *\n");
-    string s4 ("*   **       **   **    **   **       **   ********    ********    *\n");
-    string s5 ("*   ***     ***   **    **   ***     ***       **      **    ***   *\n");
-    string s6 ("*   ****   ****   **    **   ****   ****      ***      **     **   *\n");
-    string s7 ("*   ** ** ** **   **   **    ** ** ** **     *****     **     **   *\n");
-    string s8 ("*   **  ***  **   ******     **  ***  **        ***    **     **   *\n");
-    string s9 ("*   **  ***  **   **         **  ***  **         ***   **     **   *\n");
-    string s10("*   **   *   **   **         **   *   **   ***   ***   **    ***   *\n");
-    string s11("*   **       **   **         **       **    *******    ********    *\n");
-    string s12("*   **       **   **         **       **     *****     *******     *\n");
+    string s3 ("*   MM       MM   PPPPPPP    MM       MM   333333333   DDDDDDD     *\n");
+    string s4 ("*   MM       MM   PP    PP   MM       MM   33333333    DDDDDDDD    *\n");
+    string s5 ("*   MMM     MMM   PP    PP   MMM     MMM       33      DD    DDD   *\n");
+    string s6 ("*   MMMM   MMMM   PP    PP   MMMM   MMMM      333      DD     DD   *\n");
+    string s7 ("*   MM MM MM MM   PP   PP    MM MM MM MM     33333     DD     DD   *\n");
+    string s8 ("*   MM  MMM  MM   PPPPPP     MM  MMM  MM        333    DD     DD   *\n");
+    string s9 ("*   MM  MMM  MM   PP         MM  MMM  MM         333   DD     DD   *\n");
+    string s10("*   MM   M   MM   PP         MM   M   MM   333   333   DD    DDD   *\n");
+    string s11("*   MM       MM   PP         MM       MM    3333333    DDDDDDDD    *\n");
+    string s12("*   MM       MM   PP         MM       MM     33333     DDDDDDD     *\n");
 
     string logo = s1 + s2 + s3 + s4 + s5 + s6 + s7 + s8 + s9 + s10 + s11 + s12 + s2 + s1;
     cout << logo;
@@ -151,4 +205,26 @@ void MPM3D::PrintLogo(ofstream& os)
 
     cout << s1 + "\n\n";
     os << s1 + "\n\n";
+}
+
+bool MPM3D::Initialize(XMLDocument* doc)
+{
+    string log_filename = _filename + ".log";
+    _log_file.open(log_filename.c_str());
+    _log_file.setf(ios::scientific|ios::right);
+    _log_file << setprecision(4);
+
+    cout.setf(ios::scientific|ios::right);
+    cout << setprecision(4);
+
+    //!> Print program information
+    PrintLogo(_log_file);
+
+    //!> Initialize computational region: grid, body and material
+
+    //!> Initialize outputter
+
+    //!> Initialize solver
+
+    return true;
 }

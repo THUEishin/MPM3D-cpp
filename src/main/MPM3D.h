@@ -41,8 +41,15 @@ public:
 
     //!> Print logo
     void PrintLogo(ofstream& os);
+
+    //!> Initialize the computational region, solver and outputter
+    bool Initialize(XMLDocument* doc);
 private:
-    int _n_teststeps;
+    int _n_teststeps;       //!< Stop after n console output steps
+    string _path;           //!< path of input file
+    string _filename;       //!< input file name
+
+    ofstream _log_file;     //!< print console echo information into .log file
 };
 
 #endif

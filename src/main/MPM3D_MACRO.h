@@ -30,6 +30,9 @@
 #include <fstream>
 using namespace std;
 
+#include "../utility/tinyxml2.h"
+using namespace tinyxml2;
+
 #ifdef _MPM_DOUBLE
     typedef double MPM_FLOAT;
     const MPM_FLOAT MPM_EPSILON =   DBL_EPSILON;

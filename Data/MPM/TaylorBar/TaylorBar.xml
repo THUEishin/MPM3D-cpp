@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenMPM3D version="1.0">
+    <Header>
+        <Name value="TaylorBar"/>
+        <Heading value="taylor bar impact, Johnson1988"/>
+        <Description value="Taylor"/>
+        <Unit time="ms" length="mm" mass="g"/>
+    </Header>
+
+    <Material name="cu" density="8.93e-3" bq1="1.5" bq2="0.06">
+        <StrengthModel  type="SimJohnsonCook" 
+                        B="484" n="0.74" C="0" epso="1e-3" 
+                        Yield0="118.0" Young="117.0e3" Poisson="0.35"/>
+        <EquationOfState type="Gruneisen" C0="3940" S1="1.49" gamma0="1.96"/>
+        <FailureModel type="none"/>
+    </Material>
+
+    <Component name="Taylorbar">
+        <Body name="body0" material="cu" type="Cylinder" density="8.93e-3">
+            <Geometry   x0="0" y0="0" z0="0" dp_top="0.5" dp_bottom="0.5" 
+                        Bottom_Outer_Radius="5" Bottom_Inner_Radius="0"
+                        height="25.5" Top_Outer_Radius="5" Top_Inner_Radius="0" 
+                        discretization="0" angle="90"/>
+            <InitialVelocity vx="0" vy="0" vz="-190.0"/>
+        </Body>
+    </Component>
+
+    <Grid gimp="0">
+        <Cell type="regular">
+            <XMin value="0"     boundary="2"/>
+            <XMax value="11.4"  boundary="0"/>
+            <YMin value="0"     boundary="2"/>
+            <YMax value="11.4"  boundary="0"/>
+            <ZMin value="0"     boundary="2"/>
+            <ZMax value="26.6"  boundary="0"/>
+            <DCell dx="0.76" dy="0.76" dz="0.76"/>
+        </Cell>
+    </Grid>
+
+    <Solution type="MPM" algorithm="MUSL">
+        <TimeStep factor="0.6" const="0" specified="0.0"/>
+        <EndTime value="0.08"/>
+    </Solution>
+
+    <Output>
+        <Console print_time="1.0e-3" print_momentum="0"/>
+        <PostProcessing time_interval="8.0e-3" vtk_data="1" tec_data="1" var="pres|seqv|epef"/>
+    </Output>
+</OpenMPM3D>
