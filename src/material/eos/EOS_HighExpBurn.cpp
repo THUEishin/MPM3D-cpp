@@ -42,7 +42,7 @@ EOS_HighExpBurn::~EOS_HighExpBurn()
 {
 }
 
-bool EOS_HighExpBurn::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0)
+bool EOS_HighExpBurn::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0, ofstream& os)
 {
     for(map<string, MPM_FLOAT>::iterator iter = eos_para.begin(); 
         iter != eos_para.end(); iter++)
@@ -59,6 +59,7 @@ bool EOS_HighExpBurn::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho
         {
             string error_msg = "Can't find the EOS model parameter " + iter->first + " at " + Type;
             MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
+            MPM3D_ErrorMessage_log(__FILE__, __LINE__, error_msg, os);
             return false;
         }
     }
@@ -69,6 +70,7 @@ bool EOS_HighExpBurn::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho
     {
         string error_msg = "*** Error *** Character length of particle needs to be specified in High explosive burn model.";
         MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
+        MPM3D_ErrorMessage_log(__FILE__, __LINE__, error_msg, os);
         return false;
     }
 
@@ -76,6 +78,7 @@ bool EOS_HighExpBurn::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho
     {
         string error_msg = "*** Error *** Invalid CJ pressure value.";
         MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
+        MPM3D_ErrorMessage_log(__FILE__, __LINE__, error_msg, os);
         return false;
     }
 
@@ -83,6 +86,7 @@ bool EOS_HighExpBurn::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho
     {
         string error_msg = "*** Error *** There should be at least one burning method.";
         MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
+        MPM3D_ErrorMessage_log(__FILE__, __LINE__, error_msg, os);
         return false;
     }
 

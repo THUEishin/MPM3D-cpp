@@ -37,7 +37,7 @@ public:
     virtual void Write(ofstream &os);
 
     //!> Initial the Failure model with parameters' map
-    virtual bool Initialize(map<string, MPM_FLOAT> &failure_para);
+    virtual bool Initialize(map<string, MPM_FLOAT> &failure_para, ofstream& os);
 private:
     //!> Threshold of principle stress
     MPM_FLOAT _min_principle_stress;

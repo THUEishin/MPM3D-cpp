@@ -54,7 +54,7 @@ MaterialFactory::~MaterialFactory()
 bool MaterialFactory::Initialize(string& strength_name, map<string, MPM_FLOAT>& strength_para,
                     string& eos_name, map<string, MPM_FLOAT>& eos_para,
                     vector<string>& failure_name_list, vector< map<string, MPM_FLOAT> >& failure_para_list,
-                    map<string, MPM_FLOAT>& extra_para)
+                    map<string, MPM_FLOAT>& extra_para, ofstream& os)
 {
     //!> Initialize reference density and artificial viscosity
     for(map<string, MPM_FLOAT>::iterator iter = extra_para.begin(); 
@@ -66,6 +66,7 @@ bool MaterialFactory::Initialize(string& strength_name, map<string, MPM_FLOAT>& 
         {
             string error_msg = "Can't find the material model parameter: " + iter->first;
             MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
+            MPM3D_ErrorMessage_log(__FILE__, __LINE__, error_msg, os);
             return false;
         }
     }
@@ -86,11 +87,12 @@ bool MaterialFactory::Initialize(string& strength_name, map<string, MPM_FLOAT>& 
     else
     {
         string error_msg = "*** Input Error *** There is no strength model named " + strength_name + "!";
-        cout << error_msg << endl;
+        MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
+        MPM3D_ErrorMessage_log(__FILE__, __LINE__, error_msg, os);
         return false;
     }
 
-    if (!_strength->Initialize(strength_para, _reference_density))
+    if (!_strength->Initialize(strength_para, _reference_density, os))
         return false;
     
     //!> EOS model
@@ -107,12 +109,13 @@ bool MaterialFactory::Initialize(string& strength_name, map<string, MPM_FLOAT>& 
     else if (eos_name != "" && eos_name != "none" && eos_name != "None")
     {
         string error_msg = "*** Input Error *** There is no EOS model named " + eos_name + "!";
-        cout << error_msg << endl;
+        MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
+        MPM3D_ErrorMessage_log(__FILE__, __LINE__, error_msg, os);
         return false;
     }
 
     if (_eos)
-        if (!_eos->Initialize(eos_para, _reference_density))
+        if (!_eos->Initialize(eos_para, _reference_density, os))
             return false;
 
     //!> Failure model
@@ -134,13 +137,14 @@ bool MaterialFactory::Initialize(string& strength_name, map<string, MPM_FLOAT>& 
                  failure_name_list[n] != "None")
         {
             string error_msg = "*** Input Error *** There is no Failure model named " + failure_name_list[n] + "!";
-            cout << error_msg << endl;
+            MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
+            MPM3D_ErrorMessage_log(__FILE__, __LINE__, error_msg, os);
             return false;
         }
 
         if (failure_temp)
         {
-            if (!failure_temp->Initialize(failure_para_list[n]))
+            if (!failure_temp->Initialize(failure_para_list[n], os))
                 return false;
             _failure.push_back(failure_temp);
         }

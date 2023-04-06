@@ -31,9 +31,9 @@ Strength_IsoHarden::~Strength_IsoHarden()
 {
 }
 
-bool Strength_IsoHarden::Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT rho0)
+bool Strength_IsoHarden::Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT rho0, ofstream& os)
 {
-    if (!Strength_ElaPlastic::Initialize(strength_para, rho0))
+    if (!Strength_ElaPlastic::Initialize(strength_para, rho0, os))
         return false;
     
     _plastic_modulus = _Young_Modulus*_tangential_modulus/(_Young_Modulus - _tangential_modulus);

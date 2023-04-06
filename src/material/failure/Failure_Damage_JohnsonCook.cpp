@@ -84,9 +84,9 @@ void Failure_Damage_JohnsonCook::Write(ofstream &os)
     os << "Erosion: " << Erosion << endl << endl;
 }
 
-bool Failure_Damage_JohnsonCook::Initialize(map<string, MPM_FLOAT> &failure_para)
+bool Failure_Damage_JohnsonCook::Initialize(map<string, MPM_FLOAT> &failure_para, ofstream& os)
 {
-    if (!Failure_Base::Initialize(failure_para))
+    if (!Failure_Base::Initialize(failure_para, os))
         return false;
     
     return true;

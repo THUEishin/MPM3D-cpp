@@ -32,7 +32,7 @@ public:
     inline string GetName() {return Type;}
 
     //!> Initial the EOS model with parameters' map
-    virtual bool Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0);
+    virtual bool Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0, ofstream& os);
 
     //!> Write EOS model information into file
     virtual void Write(ofstream &os) = 0;

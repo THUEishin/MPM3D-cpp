@@ -32,15 +32,16 @@ EOS_Gruneisen::~EOS_Gruneisen()
 {
 }
 
-bool EOS_Gruneisen::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0)
+bool EOS_Gruneisen::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0, ofstream& os)
 {
-    if (!EOS_Base::Initialize(eos_para, rho0))
+    if (!EOS_Base::Initialize(eos_para, rho0, os))
         return false;
     
     if (_sound_speed_0 < MPM_EPSILON)
     {
         string error_msg = "*** Error *** Mie-Gruneisen EOS parameter C0 is needed !";
         MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
+        MPM3D_ErrorMessage_log(__FILE__, __LINE__, error_msg, os);
         return false;
     }
 

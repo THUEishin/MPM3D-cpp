@@ -23,6 +23,7 @@
 #define _MPM3D_H_
 
 #include "MPM3D_MACRO.h"
+#include "Domain.h"
 
 class MPM3D
 {
@@ -50,6 +51,8 @@ private:
     string _filename;       //!< input file name
 
     ofstream _log_file;     //!< print console echo information into .log file
+
+    Domain* _region;        //!< computational domain
 };
 
 #endif

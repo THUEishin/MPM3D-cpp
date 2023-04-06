@@ -31,7 +31,7 @@ Strength_Base::~Strength_Base()
 {
 }
 
-bool Strength_Base::Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT rho0)
+bool Strength_Base::Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT rho0, ofstream& os)
 {
     for(map<string, MPM_FLOAT>::iterator iter = strength_para.begin(); 
         iter != strength_para.end(); iter++)
@@ -47,6 +47,7 @@ bool Strength_Base::Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT 
         {
             string error_msg = "Can't find the strength model parameter " + iter->first + " at " + Type;
             MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
+            MPM3D_ErrorMessage_log(__FILE__, __LINE__, error_msg, os);
             return false;
         }
     }

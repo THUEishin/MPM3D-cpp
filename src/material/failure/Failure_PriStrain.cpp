@@ -92,22 +92,24 @@ void Failure_PriStrain::Write(ofstream &os)
     os << "Erosion: " << Erosion << endl << endl;
 }
 
-bool Failure_PriStrain::Initialize(map<string, MPM_FLOAT> &failure_para)
+bool Failure_PriStrain::Initialize(map<string, MPM_FLOAT> &failure_para, ofstream& os)
 {
-    if (!Failure_Base::Initialize(failure_para))
+    if (!Failure_Base::Initialize(failure_para, os))
         return false;
     
     if (_min_principle_strain >= -MPM_EPSILON)
     {
-        MPM3D_ErrorMessage(__FILE__, __LINE__, 
-            "*** INPUT ERROR *** min_principle_strain should be less than zero.");
+        string error_msg = "*** INPUT ERROR *** min_principle_strain should be less than zero.";
+        MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
+        MPM3D_ErrorMessage_log(__FILE__, __LINE__, error_msg, os);
         return false;
     }
 
     if (_max_principle_strain <= MPM_EPSILON)
     {
-        MPM3D_ErrorMessage(__FILE__, __LINE__, 
-            "*** INPUT ERROR *** max_principle_strain should be greater than zero.");
+        string error_msg = "*** INPUT ERROR *** max_principle_strain should be greater than zero.";
+        MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
+        MPM3D_ErrorMessage_log(__FILE__, __LINE__, error_msg, os);
         return false;
     }
 

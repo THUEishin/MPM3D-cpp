@@ -37,9 +37,9 @@ EOS_Polynomial::~EOS_Polynomial()
 {
 }
 
-bool EOS_Polynomial::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0)
+bool EOS_Polynomial::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0, ofstream& os)
 {
-    if (!EOS_Base::Initialize(eos_para, rho0))
+    if (!EOS_Base::Initialize(eos_para, rho0, os))
         return false;
     _sound_speed_0 = sqrt((_c1 + _c5*_internal_energy_0)/_density_0);
     return true;

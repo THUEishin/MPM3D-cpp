@@ -35,9 +35,9 @@ EOS_JWL::~EOS_JWL()
 {
 }
 
-bool EOS_JWL::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0)
+bool EOS_JWL::Initialize(map<string, MPM_FLOAT> &eos_para, MPM_FLOAT rho0, ofstream& os)
 {
-    if (!EOS_Base::Initialize(eos_para, rho0))
+    if (!EOS_Base::Initialize(eos_para, rho0, os))
         return false;
     return true;
 }

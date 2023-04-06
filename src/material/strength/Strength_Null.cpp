@@ -38,15 +38,16 @@ Strength_Null::~Strength_Null()
 {
 }
 
-bool Strength_Null::Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT rho0)
+bool Strength_Null::Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT rho0, ofstream& os)
 {
-    if (!Strength_Base::Initialize(strength_para, rho0))
+    if (!Strength_Base::Initialize(strength_para, rho0, os))
         return false;
     
     if (_mu > MPM_EPSILON && _ck > MPM_EPSILON)
     {
         string error_msg = "*** Error *** Null strength cannot be set as both Newton and non-Newton!";
         MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
+        MPM3D_ErrorMessage_log(__FILE__, __LINE__, error_msg, os);
         return false;
     }
     return true;

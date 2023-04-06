@@ -30,7 +30,7 @@ Failure_Base::~Failure_Base()
 {
 }
 
-bool Failure_Base::Initialize(map<string, MPM_FLOAT> &failure_para)
+bool Failure_Base::Initialize(map<string, MPM_FLOAT> &failure_para, ofstream& os)
 {
     for(map<string, MPM_FLOAT>::iterator iter = failure_para.begin(); 
         iter != failure_para.end(); iter++)
@@ -46,6 +46,7 @@ bool Failure_Base::Initialize(map<string, MPM_FLOAT> &failure_para)
         {
             string error_msg = "Can't find the failure model parameter " + iter->first + " at " + Type;
             MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
+            MPM3D_ErrorMessage_log(__FILE__, __LINE__, error_msg, os);
             return false;
         }
     }

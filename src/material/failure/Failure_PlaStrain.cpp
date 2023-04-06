@@ -53,15 +53,16 @@ void Failure_PlaStrain::Write(ofstream &os)
     os << "Erosion: " << Erosion << endl << endl;
 }
 
-bool Failure_PlaStrain::Initialize(map<string, MPM_FLOAT> &failure_para)
+bool Failure_PlaStrain::Initialize(map<string, MPM_FLOAT> &failure_para, ofstream& os)
 {
-    if (!Failure_Base::Initialize(failure_para))
+    if (!Failure_Base::Initialize(failure_para, os))
         return false;
     
     if (_epmax <= MPM_EPSILON)
     {
-        MPM3D_ErrorMessage(__FILE__, __LINE__, 
-            "*** INPUT ERROR *** epmax should be greater than zero.");
+        string error_msg = "*** INPUT ERROR *** epmax should be greater than zero.";
+        MPM3D_ErrorMessage(__FILE__, __LINE__, error_msg);
+        MPM3D_ErrorMessage_log(__FILE__, __LINE__, error_msg, os);
         return false;
     }
     return true;

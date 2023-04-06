@@ -22,4 +22,18 @@
 #ifndef _DOMAIN_H_
 #define _DOMAIN_H_
 
+#include "MPM3D_MACRO.h"
+
+class Domain
+{
+public:
+    Domain();
+    ~Domain();
+
+    //!> Initialize the computational region with xml input file
+    bool Initialize(XMLDocument* doc, ofstream& os);
+private:
+    string _header;         // Description of the problem
+};
+
 #endif

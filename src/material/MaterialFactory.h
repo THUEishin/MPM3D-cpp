@@ -38,7 +38,7 @@ public:
     bool Initialize(string& strength_name, map<string, MPM_FLOAT>& strength_para,
                     string& eos_name, map<string, MPM_FLOAT>& eos_para,
                     vector<string>& failure_name_list, vector< map<string, MPM_FLOAT> >& failure_para_list,
-                    map<string, MPM_FLOAT>& extra_para);
+                    map<string, MPM_FLOAT>& extra_para, ofstream& os);
 
     //!> Write material information to file
     void Write(ofstream& os, int number);

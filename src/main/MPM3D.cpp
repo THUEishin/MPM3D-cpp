@@ -221,6 +221,9 @@ bool MPM3D::Initialize(XMLDocument* doc)
     PrintLogo(_log_file);
 
     //!> Initialize computational region: grid, body and material
+    _region = new Domain;
+    if (!_region->Initialize(doc, _log_file))
+        return false;
 
     //!> Initialize outputter
 

@@ -31,7 +31,7 @@ public:
     ~Strength_Null();
 
     //!> Initial the strength model with parameters' map
-    virtual bool Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT rho0);
+    virtual bool Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT rho0, ofstream& os);
 
     //!> Write strength model information into file
     virtual void Write(ofstream &os);

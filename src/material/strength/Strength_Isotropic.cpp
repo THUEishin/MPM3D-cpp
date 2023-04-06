@@ -44,9 +44,9 @@ Strength_Isotropic::~Strength_Isotropic()
 {
 }
 
-bool Strength_Isotropic::Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT rho0)
+bool Strength_Isotropic::Initialize(map<string, MPM_FLOAT> &strength_para, MPM_FLOAT rho0, ofstream& os)
 {
-    if (!Strength_Base::Initialize(strength_para, rho0))
+    if (!Strength_Base::Initialize(strength_para, rho0, os))
         return false;
     
     _shear_modulus = 0.5*_Young_Modulus/(1.0 + _Poisson_Rate);

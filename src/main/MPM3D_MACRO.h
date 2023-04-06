@@ -97,4 +97,9 @@ inline void MPM3D_ErrorMessage(string filename, MPM_STATS linenumber, string msg
 {
     cout << "(MPM3D)Runtime Error in " << filename << " line " << linenumber << ":\n    " << msg << endl;
 }
+
+inline void MPM3D_ErrorMessage_log(string filename, MPM_STATS linenumber, string msg, ofstream& os)
+{
+    os << "(MPM3D)Runtime Error in " << filename << " line " << linenumber << ":\n    " << msg << endl;
+}
 #endif

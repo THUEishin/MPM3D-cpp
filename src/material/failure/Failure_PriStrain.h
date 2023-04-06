@@ -37,7 +37,7 @@ public:
     virtual void Write(ofstream &os);
 
     //!> Initial the Failure model with parameters' map
-    virtual bool Initialize(map<string, MPM_FLOAT> &failure_para);
+    virtual bool Initialize(map<string, MPM_FLOAT> &failure_para, ofstream& os);
 
     //!> Add extra particle properties based on different failure model
     virtual bool AddExtraParticleProperty_Failure(vector<MPM::ExtraParticleProperty> &ExtraProp,
