@@ -13,21 +13,30 @@
     Corresponding Author: Xiong Zhang
     E-mail: xzhang@tsinghua.edu.cn
 ================================================================
-    Info: Implementation of the class "Domain"
+    Info: Class definition for material particles
     Code-writter: Ruichen Ni
-    Date: 2023.4.6
+    Date: 2023.9.10
 ==============================================================*/
+#ifndef _Particle_H_
+#define _Particle_H_
+#include "../main/MPM3D_MACRO.h"
+#include "DynamicProperty.h"
+#include "PhysicalProperty.h"
 
-#include "Domain.h"
-Domain::Domain()
+class Particle
 {
-}
+public:
+    //!> Constructor and Deconstructor
+    Particle();
+    Particle(const Particle& p);
+    ~Particle();
+private:
+    DynamicProperty* _dynamic_property;
+    PhysicalProperty* _physical_property;
+public:
+//!> Various Get/Set Functions
+    inline DynamicProperty* GetDynamicPropertyPointer() {return _dynamic_property;}
 
-Domain::~Domain()
-{
-}
-
-bool Domain::Initialize(XMLDocument* doc, ofstream& os)
-{
-    return true;
-}
+    inline PhysicalProperty* GetPhysicalPropertyPointer() {return _physical_property;}
+};
+#endif

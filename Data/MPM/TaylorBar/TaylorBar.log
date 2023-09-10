@@ -1,0 +1,37 @@
+********************************************************************
+*                                                                  *
+*   MM       MM   PPPPPPP    MM       MM   333333333   DDDDDDD     *
+*   MM       MM   PP    PP   MM       MM   33333333    DDDDDDDD    *
+*   MMM     MMM   PP    PP   MMM     MMM       33      DD    DDD   *
+*   MMMM   MMMM   PP    PP   MMMM   MMMM      333      DD     DD   *
+*   MM MM MM MM   PP   PP    MM MM MM MM     33333     DD     DD   *
+*   MM  MMM  MM   PPPPPP     MM  MMM  MM        333    DD     DD   *
+*   MM  MMM  MM   PP         MM  MMM  MM         333   DD     DD   *
+*   MM   M   MM   PP         MM   M   MM   333   333   DD    DDD   *
+*   MM       MM   PP         MM       MM    3333333    DDDDDDDD    *
+*   MM       MM   PP         MM       MM     33333     DDDDDDD     *
+*                                                                  *
+********************************************************************
+*                                                                  *
+*    MPM3D - Three Dimensional Material Point Method code for      *
+*            hypervelocity impact and high explosive simulation    *
+*                                                                  *
+*    Version          : 1.0.0                                      *
+*    Compiled Date    : Nov  2 2022 (20:32:34)                     *
+*    Precision        : Double precision                           *
+*    VTKData support  : Enabled                                    *
+*                                                                  *
+*                                                                  *
+*    Activated solvers                                             *
+*       -MPM solver                                                *
+*                                                                  *
+*                                                                  *
+*    Computational Dynamics Laboratory                             *
+*    School of Aerospace, Tsinghua University                      *
+*    Beijing 100084, China                                         *
+*    Tel: +86 10 62782078                                          *
+*    web: http://comdyn.hy.tsinghua.edu.cn                         *
+*                                                                  *
+********************************************************************
+
+
